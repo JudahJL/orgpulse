@@ -15,11 +15,15 @@
         </p>
     </header>
     {% if messages %}
+        <a id="go" href="{% url 'index' %}" style="display: none;"></a>
         <div class="card shadow p-4">
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">{{ message }}</div>
             {% endfor %}
         </div>
+        <script>setTimeout(() => {
+            document.querySelector('a[id=go]').click()
+        }, 5000)</script>
     {% endif %}
     <!-- Form Section -->
     <div class="container">
@@ -36,9 +40,9 @@
     </div>
 
     <!-- Feedback Section -->
-    <div class="mt-5 d-none" id="feedbackFormContainer">
-        <div class="card p-4 shadow-sm">
-            <h2 class="text-center text-info">Thank You for Your Contribution!</h2>
+    <div class="container mt-5 hidden" id="feedbackFormContainer">
+        <div class="card shadow p-4">
+            <h2 class="text-center">Thank You for Your Contribution!</h2>
             <p class="text-center">Your pledge to donate organs can save lives.</p>
             <form id="feedbackForm">
                 <div class="mb-3">
@@ -46,7 +50,7 @@
                     <textarea id="feedback" name="feedback" class="form-control" rows="5" required></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    <button type="submit" class="btn btn-success">Submit Feedback</button>
                 </div>
             </form>
         </div>

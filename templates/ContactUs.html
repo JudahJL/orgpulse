@@ -14,6 +14,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .contact-container {
             background-color: Palegreen;
             padding: 20px;
@@ -22,32 +23,36 @@
             width: 400px;
             text-align: center;
         }
+
         .contact-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
+
         .contact-details {
             font-size: 18px;
             line-height: 1.8;
             color: #555;
         }
+
         .contact-details a {
             color: Blue;
         }
+
         .contact-details a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="contact-container">
-        <h2>Contact Us</h2>
-        <div class="contact-details">
-            <p><strong>Phone:</strong> +91 9573259844/9059706569</p>
-            <p><strong>Email:</strong> <a href="mailto:info@organdonation.com">info@organdonation.com</a></p>
-            <p style="color: red;">Thank you for your interest in organ donation. Feel free to reach out to us!</p>
-            <a href="OrganDonation_home.html"> Home </a>
-        </div>
+<div class="contact-container">
+    <h2>Contact Us</h2>
+    <div class="contact-details">
+        <p><strong>Phone:</strong> +91 9573259844/9059706569</p>
+        <p><strong>Email:</strong> <a href="mailto:info@organdonation.com">info@organdonation.com</a></p>
+        <p style="color: red;">Thank you for your interest in organ donation. Feel free to reach out to us!</p>
+        <a href="{% url 'index' %}"> Home </a>
     </div>
+</div>
 </body>
 </html>

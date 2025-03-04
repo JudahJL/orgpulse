@@ -1,36 +1,47 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.core.mail import send_mail
-from .forms import UserRegistrationForm, DonorForm, RecipientForm
-from .models import Donor, Recipient
+from .forms import UserRegistrationForm
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.contrib import messages
+from .models import Donor, Recipient  # Ensure you import your models
+from .forms import DonorForm, RecipientForm
 
 
 @login_required
 def register_donor(request):
+    donor, created = Donor.objects.get_or_create(user=request.user)  # Fetch existing or create new
+
     if request.method == "POST":
-        form = DonorForm(request.POST, request.FILES)
+        form = DonorForm(request.POST, request.FILES, instance=donor)
         if form.is_valid():
-            donor = form.save(commit=False)
-            donor.user = request.user
-            donor.save()
-            messages.success(request, "Donor Successfully registered")
+            form.save()
+            if created:
+                messages.success(request, "Donor Successfully registered")
+            else:
+                messages.info(request, "Donor details updated successfully")
     else:
-        form = DonorForm()
+        form = DonorForm(instance=donor)
+
     return render(request, 'donor_register.html', {'form': form})
 
 
 @login_required
 def register_recipient(request):
+    recipient, created = Recipient.objects.get_or_create(user=request.user)  # Fetch existing or create new
+
     if request.method == "POST":
-        form = RecipientForm(request.POST)
+        form = RecipientForm(request.POST, instance=recipient)
         if form.is_valid():
-            recipient = form.save(commit=False)
-            recipient.user = request.user
-            recipient.save()
-            messages.success(request, "Recipient successfully registered")
+            form.save()
+            if created:
+                messages.success(request, "Recipient successfully registered")
+            else:
+                messages.info(request, "Recipient details updated successfully")
     else:
-        form = RecipientForm()
+        form = RecipientForm(instance=recipient)
+
     return render(request, 'recipient_register.html', {'form': form})
 
 
@@ -40,7 +51,8 @@ def match_donors(request):
     matches = []
 
     for recipient in recipients:
-        donor = Donor.objects.filter(blood_type=recipient.blood_type, organ_type=recipient.organ_type, is_available=True).first()
+        donor = Donor.objects.filter(blood_type=recipient.blood_type, organ_type=recipient.organ_type,
+                                     is_available=True).first()
         if donor:
             matches.append((recipient, donor))
             donor.is_available = False

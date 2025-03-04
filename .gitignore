@@ -3,3 +3,7 @@
 /**/__pycache__/
 /.idea
 /.env
+/media/medical_reports/**
+!/media/medical_reports/.gitkeep
+/media/profile_pics/**
+!/media/profile_pics/.gitkeep
