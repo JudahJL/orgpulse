@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.core.mail import send_mail
 from .forms import UserRegistrationForm
@@ -11,38 +12,44 @@ from .forms import DonorForm, RecipientForm
 
 @login_required
 def register_donor(request):
-    donor, created = Donor.objects.get_or_create(user=request.user)  # Fetch existing or create new
+    try:
+        donor, created = Donor.objects.get_or_create(user=request.user)  # Fetch existing or create new
 
-    if request.method == "POST":
-        form = DonorForm(request.POST, request.FILES, instance=donor)
-        if form.is_valid():
-            form.save()
-            if created:
-                messages.success(request, "Donor Successfully registered")
-            else:
-                messages.info(request, "Donor details updated successfully")
-    else:
-        form = DonorForm(instance=donor)
+        if request.method == "POST":
+            form = DonorForm(request.POST, request.FILES, instance=donor)
+            if form.is_valid():
+                form.save()
+                if created:
+                    messages.success(request, "Donor Successfully registered")
+                else:
+                    messages.info(request, "Donor details updated successfully")
+        else:
+            form = DonorForm(instance=donor)
 
-    return render(request, 'donor_register.html', {'form': form})
+        return render(request, 'donor_register.html', {'form': form})
+    except IntegrityError:
+        return render(request, 'donor_register.html', {'form': DonorForm()})
 
 
 @login_required
 def register_recipient(request):
-    recipient, created = Recipient.objects.get_or_create(user=request.user)  # Fetch existing or create new
+    try:
+        recipient, created = Recipient.objects.get_or_create(user=request.user)  # Fetch existing or create new
 
-    if request.method == "POST":
-        form = RecipientForm(request.POST, instance=recipient)
-        if form.is_valid():
-            form.save()
-            if created:
-                messages.success(request, "Recipient successfully registered")
-            else:
-                messages.info(request, "Recipient details updated successfully")
-    else:
-        form = RecipientForm(instance=recipient)
+        if request.method == "POST":
+            form = RecipientForm(request.POST, instance=recipient)
+            if form.is_valid():
+                form.save()
+                if created:
+                    messages.success(request, "Recipient successfully registered")
+                else:
+                    messages.info(request, "Recipient details updated successfully")
+        else:
+            form = RecipientForm(instance=recipient)
 
-    return render(request, 'recipient_register.html', {'form': form})
+        return render(request, 'recipient_register.html', {'form': form})
+    except IntegrityError:
+        return render(request, 'recipient_register.html', {'form': RecipientForm()})
 
 
 @login_required
