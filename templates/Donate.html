@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register to Donate</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f5f5f5;
+        }
+
+        /* Curved Header Styling */
+        .header {
+            text-align: center;
+            padding: 30px;
+            background-color: #00b4ef; /* Baby Pink */
+            color: rgb(9, 9, 9);
+            font-size: 28px;
+            border-bottom-left-radius: 50% 20px;
+            border-bottom-right-radius: 50% 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Circular Logo Styling */
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+        }
+
+        /* Title Color */
+        .header-title {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* Header Button Styling */
+        .header button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 20px;
+            background-color: white;
+            color: #e63946;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .header button:hover {
+            background-color: #ddd;
+        }
+
+        /* Layout Styling */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Input and Button Styling */
+        input[type="text"], input[type="submit"], button {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button, input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover, input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hidden Elements */
+        .hidden {
+            display: none;
+        }
+
+        /* Centered Register Button */
+        .register-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header Section with Logo and Login Button -->
+<div class="header">
+    <img src="../static/img/logo.jpg" alt="Logo" class="logo">
+    <div class="header-title">Donate Organs - Save Lives</div>
+    <button onclick="window.location.href='login.html'">Login</button>
+</div>
+<!-- Step 2: OTP Entry (Hidden Initially) -->
+<div id="otpStep" class="hidden">
+    <label for="otp">Enter OTP:</label>
+    <input type="text" id="otp" placeholder="Enter OTP" required>
+    <button onclick="submitOtp()">Submit OTP</button>
+</div>
+
+
+<!-- Main Section -->
+<div class="container">
+    <!-- Left Section: Rules and Regulations -->
+    <div class="rules">
+        <h2>Rules and Regulations</h2>
+        <ul>
+            <li>You must be 18 years or older to donate.</li>
+            <li>Provide valid identification.</li>
+            <li>Be in good health at the time of donation.</li>
+            <li>Consent is mandatory for donation.</li>
+            <li>Donation is voluntary and non-commercial.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Register Button at the Bottom Center -->
+<div class="register-button">
+    <button onclick="window.location.href='register.html'">Register</button>
+
+</div>
+
+
+<!-- JavaScript Logic -->
+<script>
+    // Show Login Form
+    function showLoginForm() {
+        document.getElementById('loginForm').classList.remove('hidden');
+        window.scrollTo(0, document.getElementById('loginForm').offsetTop);
+    }
+
+    // Show Registration Form
+    function showRegistrationForm() {
+        document.getElementById('registrationForm').classList.remove('hidden');
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    // Simulate Sending OTP
+    function sendOtp() {
+        const email = document.getElementById('email').value;
+        if (email) {
+            alert("OTP sent to " + email);
+            document.getElementById('emailStep').classList.add('hidden');
+            document.getElementById('otpStep').classList.remove('hidden');
+        } else {
+            alert("Please enter a valid email address.");
+        }
+    }
+
+    // Simulate OTP Submission
+    function submitOtp() {
+        const otp = document.getElementById('otp').value;
+        if (otp) {
+            alert("Login Successful!");
+        } else {
+            alert("Please enter a valid OTP.");
+        }
+    }
+</script>
+
+</body>
+</html>

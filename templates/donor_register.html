@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block title %}Organ Donation{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Section -->
+    <header class="text-center my-5">
+        <h1 class="display-4 fw-bold text-primary">Hello, {{ request.user.username }}</h1>
+        <h1 class="display-4 fw-bold text-primary">Donate Organs - Save Lives</h1>
+        <p class="lead text-muted">
+            For Organs/Tissue Pledging (To Be Filled by Individuals Aged 18 Years to 60 Years)
+        </p>
+    </header>
+    {% if messages %}
+        <div class="card shadow p-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <!-- Form Section -->
+    <div class="container">
+        <div class="card shadow-lg p-4">
+            <h2 class="text-center text-success">Pledge to Donate</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success">Submit Pledge</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="mt-5 d-none" id="feedbackFormContainer">
+        <div class="card p-4 shadow-sm">
+            <h2 class="text-center text-info">Thank You for Your Contribution!</h2>
+            <p class="text-center">Your pledge to donate organs can save lives.</p>
+            <form id="feedbackForm">
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">Your Feedback:</label>
+                    <textarea id="feedback" name="feedback" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

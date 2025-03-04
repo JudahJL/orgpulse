@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORGAN DONATION</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('../static/img/home.jpg') no-repeat center center/cover; /* Full-screen background image */
+            height: 100vh; /* Full viewport height */
+            color: rgb(17, 11, 11); /* White text for readability */
+        }
+
+        /* Overlay (optional for better readability) */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Header Styling */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            font-family: serif;
+        }
+
+        /* Left Section with Logo and Heading */
+        .left {
+            display: flex;
+            align-items: center;
+        }
+
+        .left img {
+            width: 90px;
+            height: 90px;
+            margin-right: 10px;
+            border-radius: 50%; /* Optional: Makes the logo circular */
+            object-fit: cover; /* Ensures the logo image is not distorted */
+        }
+
+        .left h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        /* Top Right Navigation */
+        .top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-right ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+        }
+
+        .top-right ul li a {
+            color: rgb(29, 13, 13);
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold; /* Bold hyperlinks */
+            padding: 20px 30px;
+            border-radius: 7px;
+            font-family: serif;
+        }
+
+        .top-right ul li a:hover {
+            background: rgba(226, 160, 177, 0.8); /* Slightly lighter on hover */
+        }
+
+        /* Bottom Right Navigation */
+        .bottom-right {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .bottom-right a {
+            color: rgb(7, 4, 4);
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold; /* Bold hyperlink */
+            padding: 10px 50px;
+            border-radius: 5px;
+            font-family: serif;
+        }
+
+        .bottom-right a:hover {
+            background: rgba(226, 160, 177, 0.8); /* Slightly lighter on hover */
+        }
+
+        /* Quote Styling */
+        .quote {
+            position: absolute;
+            left: 50px; /* Position from the left */
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Adjust for perfect vertical centering */
+            font-size: 1.6em;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(246, 240, 240, 0.7); /* Text shadow for readability */
+            color: rgb(18, 8, 8); /* Make it visible against the background */
+            font-family: serif;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <!-- Left Section: Logo and Heading -->
+    <div class="left">
+        <img src="{% static 'img/logo.jpg' %}" alt="Organ Donation Logo">
+        <h1>ORGAN DONATION </h1>
+    </div>
+
+    <!-- Top Right Navigation -->
+    <div class="top-right">
+        <ul>
+            <li><a href="Admin.html">Admin</a></li>
+            <li><a href="{% url 'register_donor' %}">Register To Donate</a></li>
+            <li><a href="{% url 'register_recipient' %}">Request for Donor</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- Quote Section -->
+<div class="quote">
+    <h1><i><b>MORE DONORS, MORE HOPE</b></i></h1>
+
+</div>
+
+<!-- Bottom Right Navigation -->
+<div class="bottom-right">
+    <a href="{% url 'contact_us' %}">Contact Us</a>
+</div>
+</body>
+</html>
