@@ -18,9 +18,17 @@
                     <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                 {% endfor %}
             </div>
-            <script>setTimeout(() => {
-                document.querySelector('a[id=go]').click()
-            }, 5000)</script>
+            <script>
+                let b = () => {
+                    let a = document.querySelector(`div[id="go-countdown"]`);
+                    for (let i = 0; i <= 5000; i += 1000) {
+                        setTimeout(() => a.innerText = `Redirecting in ${5 - (i / 1000)}`, i);
+                    }
+
+                    setTimeout(() => document.querySelector('a[id=go]').click(), 6000);
+                };
+                b();
+            </script>
         {% endif %}
         <div class="card shadow p-4">
             <form id="donationForm">
@@ -59,34 +67,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-light mt-5 py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <p><strong>Phone:</strong> 9573259844 / 9059706569</p>
-                    <p><strong>Email:</strong> <a href="mailto:info@donatelife.org.in" class="text-light">info@donatelife.org.in</a>
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="OrganDonation_home.html" class="text-light">Home</a></li>
-                        <li><a href="index.html" class="text-light">Register</a></li>
-                        <li><a href="#feedbackForm" class="text-light">Feedback</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h5>Follow Us</h5>
-                    <a href="https://www.facebook.com" class="text-light me-2" target="_blank">Facebook</a>
-                    <a href="https://www.twitter.com" class="text-light me-2" target="_blank">Twitter</a>
-                    <a href="https://www.instagram.com" class="text-light" target="_blank">Instagram</a>
-                </div>
-            </div>
-            <hr>
-            <p class="text-center">&copy; 2025 Donate Life. All Rights Reserved.</p>
-        </div>
-    </footer>
 {% endblock %}

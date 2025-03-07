@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from organ_donor.models import User, Donor, Recipient, Diseases, Category
+from organ_donor.models import User, Donor, Recipient, Diseases, Category, OrgPulseAdmin
 
 
 class LoginForm(AuthenticationForm):
@@ -80,3 +80,7 @@ class RecipientForm(forms.ModelForm):
     class Meta:
         model = Recipient
         fields = ['dob', 'gender', 'whatsappNo', 'blood_type', 'diseases', 'organ_type', 'address', 'profile_pic', 'medical_report', 'witness_name', 'witness_whatsappNo']
+
+
+class OrgPulseAdminForm(forms.ModelForm):
+    verify = forms.BooleanField(required=True)

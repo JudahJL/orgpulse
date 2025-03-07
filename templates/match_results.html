@@ -1,10 +1,70 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Matched Donors & Recipients</h2>
+
+    {% if matches %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Recipient</th>
+                <th>Donor</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for match in matches %}
+                <tr>
+                    <td>{{ match.recipient_name }}</td>
+                    <td>{{ match.donor_name }}</td>
+                    <td>
+                        <button class="btn btn-success send-email"
+                                data-recipient-id="{{ match.recipient_id }}"
+                                data-donor-id="{{ match.donor_id }}">
+                            Approve & Send Email
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info text-center mt-4">
+            <h4>No Matches Found</h4>
+            <p>Currently, there are no matching donors and recipients in the system.</p>
+            <p>Try checking back later or encouraging more donor registrations.</p>
+        </div>
+    {% endif %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".send-email").forEach(button => {
+                button.addEventListener("click", function () {
+                    let recipientId = this.getAttribute("data-recipient-id");
+                    let donorId = this.getAttribute("data-donor-id");
+
+                    fetch("{% url 'send_match_email' %}", {
+                        method: "PUT",
+                        headers: {
+                            "X-CSRFToken": "{% csrf_token %}",
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: `recipient_id=${recipientId}&donor_id=${donorId}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Emails sent successfully!");
+                                this.disabled = true;
+                            } else {
+                                alert("Error: " + data.error);
+                            }
+                        });
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -21,9 +21,18 @@
                 <div class="alert alert-{{ message.tags }}">{{ message }}</div>
             {% endfor %}
         </div>
-        <script>setTimeout(() => {
-            document.querySelector('a[id=go]').click()
-        }, 5000)</script>
+        <div id="go-countdown" class="alert alert-primary" role="alert"></div>
+        <script>
+            let b = () => {
+                let a = document.querySelector(`div[id="go-countdown"]`);
+                for (let i = 0; i <= 5000; i += 1000) {
+                    setTimeout(() => a.innerText = `Redirecting in ${5 - (i / 1000)}`, i);
+                }
+
+                setTimeout(() => document.querySelector('a[id=go]').click(), 6000);
+            };
+            b();
+        </script>
     {% endif %}
     <!-- Form Section -->
     <div class="container">
