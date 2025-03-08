@@ -94,9 +94,15 @@ def send_match_email(request):
 
         send_mail(
             "Organ Donation Match Found",
-            f"Dear {donor.user.username}, you have been matched with {recipient.user.username}.",
+            f"Dear {recipient.user.username}, you have been matched.",
             "orgpulse.organ@gmail.com",
-            [donor.user.email, recipient.user.email],
+            [recipient.user.email],
+        )
+        send_mail(
+            "Organ Donation Match Found",
+            f"Dear {donor.user.username}, you have been matched.",
+            "orgpulse.organ@gmail.com",
+            [donor.user.email],
         )
 
         return JsonResponse({'success': "Emails sent successfully"})

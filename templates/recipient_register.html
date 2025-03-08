@@ -9,6 +9,7 @@
         <div class="text-center mb-4">
             <img src="{% static 'img/logo.jpg' %}" alt="Organ Donation Logo" class="img-fluid"
                  style="max-width: 200px;">
+            <h1 class="display-4 fw-bold text-primary">Hello, {{ request.user.username }}</h1>
             <h1 class="mt-3">Hope begins with a match – find your donor now</h1>
         </div>
         {% if messages %}
@@ -31,7 +32,7 @@
             </script>
         {% endif %}
         <div class="card shadow p-4">
-            <form id="donationForm">
+            <form id="donationForm" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
 

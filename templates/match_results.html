@@ -37,18 +37,17 @@
             <p>Try checking back later or encouraging more donor registrations.</p>
         </div>
     {% endif %}
-
+    {% csrf_token %}
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll(".send-email").forEach(button => {
                 button.addEventListener("click", function () {
                     let recipientId = this.getAttribute("data-recipient-id");
                     let donorId = this.getAttribute("data-donor-id");
-
                     fetch("{% url 'send_match_email' %}", {
-                        method: "PUT",
+                        method: "POST",
                         headers: {
-                            "X-CSRFToken": "{% csrf_token %}",
+                            "X-CSRFToken": document.querySelector(`input[name='csrfmiddlewaretoken']`).value,
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: `recipient_id=${recipientId}&donor_id=${donorId}`
